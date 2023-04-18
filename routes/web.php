@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Site\SiteController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\SliderController;
@@ -55,8 +57,14 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function(){
     Route::delete('sizes/{id}/forcedelete', [SizeController::class, 'forcedelete'])->name('sizes.forcedelete');
     Route::resource('sizes',SizeController::class);
 
-     //images
-     Route::resource('productImages',ProductImageController::class);
+    //images
+    Route::resource('productImages',ProductImageController::class);
+
+    //User
+    Route::resource('users',UserController::class);
+
+    //Role
+    Route::resource('roles',RoleController::class);
 });
 
 Route::get('/',[SiteController::class,'index'])->name('site.index');
@@ -71,12 +79,6 @@ Route::post('add-review',[SiteController::class,'add_review'])->name('site.add_r
 Route::get('search',[SiteController::class,'search'])->name('site.search');
 Route::post('add-to-favorite',[SiteController::class,'add_to_favorite'])->name('site.add_to_favorite');
 
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
 
 require __DIR__.'/auth.php';
 

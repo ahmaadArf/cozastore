@@ -8,6 +8,14 @@ use App\Http\Controllers\Controller;
 
 class ColorController extends Controller
 {
+
+    function __construct()
+    {
+         $this->middleware('permission:color-list|color-create|color-edit|color-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:color-create', ['only' => ['create','store']]);
+         $this->middleware('permission:color-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:color-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *

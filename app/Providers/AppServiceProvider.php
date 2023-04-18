@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('appCarts',Cart::all());
         View::share('appFavorites',Favorite::all());
+        View::share('appCarts',Cart::all());
     }
 }

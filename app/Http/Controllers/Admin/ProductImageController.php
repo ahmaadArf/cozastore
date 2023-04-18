@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\File;
 
 class ProductImageController extends Controller
 {
+    function __construct()
+    {
+         $this->middleware('permission:productImage-list|productImage-create|productImage-edit|productImage-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:productImage-create', ['only' => ['create','store']]);
+         $this->middleware('permission:productImage-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:productImage-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
